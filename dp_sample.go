@@ -6,6 +6,7 @@ import (
 	"os"
 	"sort"
 	"strconv"
+	"time"
 )
 
 func minCost(N int, p float64, dp [][]float64, mem [][]int) float64 {
@@ -53,7 +54,9 @@ func main() {
 	for i := range mem_ {
 		mem_[i] = make([]int, N_+1)
 	}
+	startTime := time.Now()
 	mC := minCost(N_, p_, dp_, mem_)
+	consumedTime := time.Since(startTime)
 	res := make(map[int]bool)
 	res[0] = true
 	res[N_] = true
@@ -64,5 +67,6 @@ func main() {
 		seqs = append(seqs, k)
 	}
 	sort.Sort(sort.IntSlice(seqs))
-	fmt.Println("the generated sequence is: ", seqs)
+	fmt.Println("the generated sequence is:", seqs)
+	fmt.Printf("time consumed: %v\n", consumedTime)
 }
